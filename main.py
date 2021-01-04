@@ -12,7 +12,7 @@ import numpy as np
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-    image = cv2.imread('./m21.jpg')
+    image = cv2.imread('./pics/photo3.png')
     cv2.imshow('image', image)
 
     # 构造卷积核
@@ -38,6 +38,29 @@ def print_hi(name):
     edgeFilter2 = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]])
     edgeFilter3 = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
     edgeFilter4 = np.array([[1, -2, 1], [-2, 4, -2], [1, -2, 1]])
+
+    fortyfiveEdgeFilter = np.array([
+        [-1, 0, 0, 0, 0],
+        [0, -2, 0, 0, 0],
+        [0, 0, 6, 0, 0],
+        [0, 0, 0, -2, 0],
+        [0, 0, 0, 0, -1]
+    ])
+
+    horizontalEdgefilter = np.array([
+        [0, 0, -1, 0, 0],
+        [0, 0, -1, 0, 0],
+        [0, 0, 2, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0]
+    ])
+    verticalEdgeFilter = np.array([
+        [0, 0, -1, 0, 0],
+        [0, 0, -1, 0, 0],
+        [0, 0, 4, 0, 0],
+        [0, 0, -1, 0, 0],
+        [0, 0, -1, 0, 0]
+    ])
     # 6.梯度方向检测
     tiduFilter1 = np.array([[1, 1, 1], [1, -2, 1], [-1, -1, -1]])
     tiduFilter2 = np.array([[1, 1, 1], [-1, -2, 1], [-1, -1, 1]])
@@ -49,14 +72,65 @@ def print_hi(name):
     tiduFilter7 = np.array([[1, 1, -1], [1, -2, -1], [1, 1, -1]])
     tiduFilter8 = np.array([[1, 1, 1], [1, -2, -1], [1, -1, -1]])
 
+    # 7.blur
+    blurFilter1 = np.array([[0.0, 0.2, 0.0], [0.2, 0.2, 0.2], [0.0, 0.2, 0.0]])
+    bigBlurFilter1 = np.array([[0, 0, 1, 0, 0],
+                               [0, 1, 1, 1, 0],
+                               [1, 1, 1, 1, 1],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 1, 0, 0]])
+    # 8.Gaussian blur
+    gaussianblur = np.array([[1, 4, 6, 4, 1],
+                             [4, 16, 24, 16, 4],
+                             [6, 24, 36, 24, 6],
+                             [4, 16, 24, 16, 4],
+                             [1, 4, 6, 4, 1]])
+    # 9.motionblur
+    motionblur = np.array([
+        [1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 1]])
+
+    # 10.sharpen
+    sharpenFilter = np.array([
+        [-1, -1, -1, -1, -1],
+        [-1, 2, 2, 2, -1],
+        [-1, 2, 8, 2, -1],
+        [-1, 2, 2, 2, -1],
+        [-1, -1, -1, -1, -1]
+    ])
+    sharpen2Filter = np.array([
+        [1, 1, 1],
+        [1, -7, 1],
+        [1, 1, 1]
+    ])
+    # 11.Emobss
+    emobssFilter = np.array([
+        [-1, -1, 0],
+        [-1, 0, 1],
+        [0, 1, 1]
+    ])
+    emobssFilter2 = np.array([
+        [-1, -1, -1, -1, 0],
+        [-1, -1, -1, 0, 1],
+        [-1, -1, 0, 1, 1],
+        [-1, 0, 1, 1, 1],
+        [0, 1, 1, 1, 1]
+    ])
     # 卷积计算
     # dst = cv2.filter2D(image, -1, kernel)
-    dst = cv2.filter2D(image, -1, tiduFilter8)
+    dst = cv2.filter2D(image, -1, emobssFilter2)
 
     # 显示计算之后的图片
     cv2.imshow('dst', dst)
     # 保存图片
-    cv2.imwrite('./mtiduFilter8.jpg', dst)
+    cv2.imwrite('./flower/emobssFilter2.png', dst)
 
 
 # Press the green button in the gutter to run the script.
